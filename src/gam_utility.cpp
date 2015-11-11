@@ -11,7 +11,7 @@ void gam::Utility::initRandNumberGen() {
 	if( !( fp = open(PATH_TO_URANDOM, O_RDONLY) ) )
 	{
 		fprintf(stderr, "ERROR: file %s could not be opened.\n"
-			"This program will finish.\n", PATH_TO_URANDOM);
+			"This program will be aborted.\n", PATH_TO_URANDOM);
 		exit(EXIT_FAILURE);
 	}
 
@@ -20,8 +20,8 @@ void gam::Utility::initRandNumberGen() {
 
 	if( bytesRead < 0 )
 	{
-		fprintf(stderr, "ERROR: could not be read from: %s.\n"
-			"The program will end.\n", PATH_TO_URANDOM);
+		fprintf(stderr, "ERROR: could not read from: %s.\n"
+			"The program will be aborted.\n", PATH_TO_URANDOM);
 		exit(EXIT_FAILURE);
 	}
 
