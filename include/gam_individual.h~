@@ -1,7 +1,6 @@
 #ifndef GAM_INCLUDE_INDIVIDUAL_H_
 #define GAM_INCLUDE_INDIVIDUAL_H_
 
-#include "gam_chromosome.h"
 
 typedef unsigned int uint32;
 
@@ -22,6 +21,7 @@ namespace gam{
 		void setChromosome(chromosome ch);
 		void setChromosome(uint32 b);
 		chromosome getChromosome();
+
 
 	};
 };

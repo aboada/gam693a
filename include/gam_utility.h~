@@ -6,8 +6,6 @@
 
 namespace gam {
 
-  typedef unsigned int uint32;
-  
   class Utility {
     public:
       static void initRandNumberGen();

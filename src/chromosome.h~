@@ -1,0 +1,15 @@
+typedef unsigned int UI;
+
+
+typedef struct var
+{
+	UI	X : 16;
+	UI	Y : 16;
+} loci ;
+
+
+typedef union chromosome
+{
+	UI	chrome;
+	loci 	var;
+} chroma;
