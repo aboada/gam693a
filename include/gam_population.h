@@ -4,6 +4,7 @@
 #include <vector>
 
 namespace gam {
+
   class Population {
     private:
       unsigned int popSize;
@@ -16,6 +17,7 @@ namespace gam {
       void initPopulation();
       void evalFitness();
   }
+  
 }
 
 #endif // GAM_INCLUDE_POPULATION_H_
