@@ -14,7 +14,7 @@ namespace gam {
     public:
       static void initByDefault();
       static void initByFile();
-  }
+  };
   
 }
 

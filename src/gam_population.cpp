@@ -5,7 +5,7 @@
 using namespace std;
 
 gam::Population::Population(unsigned int size){
-  if( size > 0 ) {
+  if ( size > 0 ) {
     popSize = size;
     members.reserve(size);
   }
@@ -16,19 +16,19 @@ gam::Population::Population(unsigned int size){
 }
 
 gam::Population::initPopulation() {
-  if(popSize < 1)
+  if ( popSize < 1 )
     return;
     
-  for(unsigned int i = 0; i < popSize; ++i) {
+  for (unsigned int i = 0; i < popSize; ++i) {
     members.push_back( new Individual( gam::Utility.getRandom32() ) );
   }
 }
 
 gam::Population::evalFitness() {
-  if(popSize < 1)
+  if ( popSize < 1 )
     return;
     
-  for(unsigned int i = 0; i < popSize; ++i) {
+  for (unsigned int i = 0; i < popSize; ++i) {
     members[i].computeFitness();
   }
 }

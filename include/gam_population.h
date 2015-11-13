@@ -13,10 +13,10 @@ namespace gam {
     public:
       Population(unsigned int size);
       ~Population();
-      
-      void initPopulation();
-      void evalFitness();
-  }
+      void initialize();
+      void evaluate();
+      void sort();
+  };
   
 }
 

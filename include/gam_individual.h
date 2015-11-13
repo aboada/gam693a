@@ -4,25 +4,22 @@
 #include "gam_chromosome.h"
 
 typedef unsigned int uint32;
-
+typedef double FitnessType;
 
 namespace gam{
-	class Individual{
-		private:
-		
-		double fitness;
-		chromosome chrome;
-	
-		public:
-	
-		Individual(uint32 b);	
-		Individual();
-		void compFitness();
-		double getFitness();
-		void setChromosome(chromosome ch);
-		void setChromosome(uint32 b);
-		chromosome getChromosome();
-
+  class Individual{
+    private:
+      fitness_t fitness;
+      chromosome chrome;
+      
+    public:
+      Individual(uint32 b);	
+      Individual();
+      void compFitness();
+      fitness_t getFitness();
+      void setChromosome(chromosome ch);
+      void setChromosome(uint32 b);
+      chromosome getChromosome();
 	};
 };
 

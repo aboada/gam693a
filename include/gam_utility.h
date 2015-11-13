@@ -14,7 +14,7 @@ namespace gam {
       static unsigned int getRandom32(); // [0,UINT_MAX]
       static unsigned int getRandom32(unsigned int a, unsigned int b); // [a,b]
       static unsigned int getRandom32(unsigned int l); // [0,l]
-  }
+  };
   
 }
 
