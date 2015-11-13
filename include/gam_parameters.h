@@ -5,15 +5,27 @@ namespace gam {
   
   class Parameters {
     private:
-      static unsigned int popSize;
-      static unsigned int maxGenerations;
-      static double generationalGap;
-      static double mutationProb;
-      static double bitMutationProb;
+      unsigned int popSize;
+      unsigned int maxGenerations;
+      double generationalGap;
+      double mutationProb;
+      double bitMutationProb;
     
     public:
-      static void initByDefault();
-      static void initByFile();
+      Parameters();
+      Parameters(boolean isInitByFile);
+      void initByDefault();
+      void initByFile();
+      unsigned int getPopulationSize();
+      unsigned int getMaxGenerations();
+      double getGenerationalGap();
+      double getMutationProb();
+      double bitMutationProb();
+      void setPopulationSize(unsigned int size);
+      void setMaxGenerations(unsigned int max);
+      void setGenerationalGap(double gap);
+      void setMutationProb(double prob);
+      void setBitMutationProb(double prob);
   };
   
 }

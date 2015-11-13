@@ -3,6 +3,7 @@
 
 #include "gam_population.h"
 #include "gam_individual.h"
+#include "gam_parameters.h"
 
 namespace gam {
 
@@ -13,8 +14,11 @@ namespace gam {
     public:
       GeneticAlgorithm();
       GeneticAlgorithm(boolean isInitByFile);
+      GeneticAlgorithm(Parameters p);
       void initialize(boolean isInitByFile);
       FitnessType evolve();
+      void setParameters(Parameters p);
+      Parameters getParameters();
 
     private:
       Population selection(Population p);
