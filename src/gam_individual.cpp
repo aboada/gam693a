@@ -6,15 +6,12 @@
 #define GAM_INIT_X_VAL 10
 #define GAM_INIT_Y_VAL 10
 #define FUNC(x,y) 100*(pow((y-pow(x,2)),2))+(pow((1-x),2))
-
-
+#define FITNESS_MAX_VALUE DBL_MAX
 
 using namespace gam;
 
-typedef unsigned int uint32;
-
 Individual::Individual(uint32 b){
-	fitness = DBL_MAX;
+	fitness = FITNESS_MAX_VALUE;
 	chrome.bitarray = b;		
 }	
 
@@ -24,27 +21,29 @@ Individual::Individual(){
 	chrome.info.ycomponent = GAM_INIT_Y_VAL;	
 }
 		
-void Individual :: compFitness(){
-	double x,y;
-	x = chrome.info.xcomponent;
-	y = chrome.info.ycomponent;
-	fitness = FUNC(x,y);
+void Individual::computeFitness(){
+	FitnessType x,y;
+	
+  // TODO: Fix this, chrome.info._component should be decoded first 
+	x = chrome.info.xcomponent; 
+	y = chrome.info.ycomponent; 
 
+	fitness = FUNC(x,y);
 }
 
-double Individual :: getFitness(){
+FitnessType Individual::getFitness(){
 	return fitness;
 }
 	
-void Individual :: setChromosome(chromosome ch){
+void Individual::setChromosome(chromosome ch){
 	chrome = ch;
 }
 	
-void Individual :: setChromosome(uint32 b){
+void Individual::setChromosome(uint32 b){
 	chrome.bitarray = b;
 }
 
-chromosome Individual :: getChromosome(){
+chromosome Individual::getChromosome(){
 	return chrome;
 }
 

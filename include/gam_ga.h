@@ -14,7 +14,7 @@ namespace gam {
       GeneticAlgorithm();
       GeneticAlgorithm(boolean isInitByFile);
       void initialize(boolean isInitByFile);
-      fitness_t evolve();
+      FitnessType evolve();
 
     private:
       Population selection(Population p);
