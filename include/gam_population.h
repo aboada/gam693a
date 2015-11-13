@@ -16,6 +16,11 @@ namespace gam {
       void initialize();
       void evaluate();
       void sort();
+      Individual getIndividual(unsigned int pos);
+      void gam::Population::setIndividual(unsigned int pos, Individual ind);
+
+    private:
+      void sortByFitness(const Individual& i1, const Individual& i2);
   };
   
 }

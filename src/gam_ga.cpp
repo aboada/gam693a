@@ -28,7 +28,16 @@ Population gam::GeneticAlgorithm::selection(Population p) {
   // TODO: implement this method
 }
 
-Population gam::GeneticAlgorithm::recombination(Population p) {
+Population gam::GeneticAlgorithm::offspring(Population p) {
+  // TODO: implement this method
+}
+
+Individual gam::GeneticAlgorithm::recombination(Individual i1, 
+        Individual i2) {
+  // TODO: implement this method
+}
+
+Individual gam::GeneticAlgorithm::mutate(Individual i) {
   // TODO: implement this method
 }
 

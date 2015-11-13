@@ -9,14 +9,14 @@ typedef double FitnessType;
 namespace gam{
   class Individual{
     private:
-      fitness_t fitness;
+      FitnessType fitness;
       chromosome chrome;
       
     public:
       Individual(uint32 b);	
       Individual();
       void compFitness();
-      fitness_t getFitness();
+      FitnessType getFitness();
       void setChromosome(chromosome ch);
       void setChromosome(uint32 b);
       chromosome getChromosome();
