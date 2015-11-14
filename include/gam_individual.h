@@ -10,16 +10,16 @@ namespace gam{
   class Individual{
     private:
       FitnessType fitness;
-      chromosome chrome;
+      Chromosome chrome;
       
     public:
       Individual(uint32 b);	
       Individual();
       void compFitness();
       FitnessType getFitness();
-      void setChromosome(chromosome ch);
+      void setChromosome(Chromosome ch);
       void setChromosome(uint32 b);
-      chromosome getChromosome();
+      Chromosome getChromosome();
 	};
 };
 

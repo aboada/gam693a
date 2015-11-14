@@ -5,12 +5,12 @@ typedef unsigned int uint32;
 
 
 typedef struct {
-	uint32	xcomponent : GAM_X_COMPONENT;
-	uint32	ycomponent : GAM_Y_COMPONENT;
-} gene ;
+  uint32	xComponentBits : GAM_X_COMPONENT;
+  uint32	yComponentBits : GAM_Y_COMPONENT;
+} Gene ;
 
 
 typedef union {
-	uint32	bitarray;
-	gene 	  info;
-} chromosome; 
+  uint32	bitarray;
+  Gene 	  info;
+} Chromosome; 
