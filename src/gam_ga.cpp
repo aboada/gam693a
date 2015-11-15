@@ -57,8 +57,9 @@ Population gam::GeneticAlgorithm::offspring(Population p) {
       while(k!=i){
         k = Utility.getRandom32(0,p.popSize-1);
         k = ceil(k);
+      }
+      p.member[i] = recombination(p.members[i],p.member[k]);
     }
-    p.member[i] = recombination(p.members[i],p.member[k]);
   }
 }
 
