@@ -6,7 +6,11 @@
 
 using namespace std;
 
-gam::Population::Population(unsigned int size){
+gam::Population::Population() {
+  popsize=0;
+}
+
+gam::Population::Population(unsigned int size) {
   if ( size > 0 ) {
     popSize = size;
     members.reserve(size);
@@ -16,6 +20,11 @@ gam::Population::Population(unsigned int size){
     cerr << "Reason: population size < 1 (" << size << ")" << endl;
   }
 }
+
+gam::Population::~Population() {
+  delete popSize;
+  delete members;
+  }
 
 void gam::Population::initPopulation() {
   if ( popSize < 1 )
@@ -51,3 +60,6 @@ void gam::Population::setIndividual(unsigned int pos, Individual ind) {
   members[pos] = ind;
 }
 
+unsigned int gam::Population::getPopulationSize() {
+  return popSize;
+}

@@ -46,5 +46,5 @@ Chromosome Individual::getChromosome(){
   return chrome;
 }
 
-
+ 
 

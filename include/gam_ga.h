@@ -4,7 +4,7 @@
 #include "gam_population.h"
 #include "gam_individual.h"
 #include "gam_parameters.h"
-#include "gam_individual.h"
+
 
 namespace gam {
 
@@ -14,9 +14,9 @@ namespace gam {
       
     public:
       GeneticAlgorithm();
-      GeneticAlgorithm(boolean isInitByFile);
+      GeneticAlgorithm(bool isInitByFile);
       GeneticAlgorithm(Parameters p);
-      void initialize(boolean isInitByFile);
+      void initialize(bool isInitByFile);
       FitnessType evolve();
       void setParameters(Parameters p);
       Parameters getParameters();

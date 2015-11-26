@@ -13,14 +13,14 @@ namespace gam {
     
     public:
       Parameters();
-      Parameters(boolean isInitByFile);
+      Parameters(bool isInitByFile);
       void initByDefault();
       void initByFile();
       unsigned int getPopulationSize();
       unsigned int getMaxGenerations();
       double getGenerationalGap();
       double getMutationProb();
-      double bitMutationProb();
+      double getBitMutationProb();
       void setPopulationSize(unsigned int size);
       void setMaxGenerations(unsigned int max);
       void setGenerationalGap(double gap);
