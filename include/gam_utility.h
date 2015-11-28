@@ -1,6 +1,19 @@
 #ifndef GAM_INCLUDE_UTILITY_H_
 #define GAM_INCLUDE_UTILITY_H_
 
+#include <cstdio>
+#include <climits>
+#include <cstdlib>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+ 
+#include "gam_definitions.h"
+
 namespace gam {
   
   class Utility {
@@ -14,3 +27,4 @@ namespace gam {
 }
 
 #endif // GAM_INCLUDE_UTILITY_H_
+

@@ -16,7 +16,7 @@ gam: $(GAM)
 #   Compiling statements.
 #   __________________________________________________________________
 
-%.o: %.cc
+%.o: %.cpp
 	$(CC) $(CCFLAGS) $<
 
 #   Archiving statements.

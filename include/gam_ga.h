@@ -22,10 +22,9 @@ namespace gam {
       Parameters getParameters();
 
     private:
-      Population selection(Population p);
-      Population offspring(Population p);
-      void evalPopulation(Population p);
-      Population replacement(Population pCnt, Population pTmp);
+      Population selection(Population &p);
+      Population offspring(Population &p);
+      Population replacement(Population &pCnt, Population &pTmp);
   };
   
 }

@@ -8,7 +8,7 @@ using namespace std;
 using namespace gam;
 
 Population::Population() {
-  popsize=0;
+  popSize = 0;
 }
 
 Population::Population(unsigned int size) {
@@ -23,16 +23,14 @@ Population::Population(unsigned int size) {
 }
 
 Population::~Population() {
-  delete popSize;
-  delete members;
-  }
+}
 
 void Population::initPopulation() {
   if ( popSize < 1 )
     return;
     
   for (unsigned int i = 0; i < popSize; ++i) {
-    members.push_back( new Individual( Utility.getRandom32() ) );
+    members.push_back( Individual( Utility::getRandomUI32() ) );
   }
 }
 
@@ -45,12 +43,15 @@ void Population::evalFitness() {
   }
 }
 
-void sortByFitness(const Individual& i1, const Individual& i2) {
-  return i1.getFitness() < i2.getFitness();
+bool sortByFitness(const Individual& i1, const Individual& i2) {
+  Individual ind1 = i1;
+  Individual ind2 = i2;
+  
+  return ind1 < ind2;
 }
 
 void Population::sort() {
-  sort(members.begin(), members.end(), sortByFitness);
+  std::sort(members.begin(), members.end(), sortByFitness);
 }
 
 Individual Population::getIndividual(unsigned int pos) {

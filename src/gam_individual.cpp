@@ -5,7 +5,7 @@ using namespace gam;
 
 Individual::Individual(uint32 b) {
   fitness = FITNESS_MAX_VALUE;
-  chrome.bitarray = b;		
+  chrome.bitArray = b;		
 }	
 
 Individual::Individual() {
@@ -33,7 +33,7 @@ void Individual::setChromosome(Chromosome ch){
 }
 	
 void Individual::setChromosome(uint32 b){
-  chrome.bitarray = b;
+  chrome.bitArray = b;
 }
 
 Chromosome Individual::getChromosome(){
@@ -41,7 +41,7 @@ Chromosome Individual::getChromosome(){
 }
 
 // Single point crossover
-Individual& Individual::operator & (const Individual &parent) {
+Individual Individual::crossover(Individual parent) {
   unsigned int xPoint, nBits;
   uint32 chThis, chParent, mask, off;
   
@@ -50,37 +50,41 @@ Individual& Individual::operator & (const Individual &parent) {
   
   nBits = sizeof( uint32 );
   
-  xPoint = Utility::getRandom32UI(0, nBits);
+  xPoint = Utility::getRandomUI32(0, nBits);
   
   mask = ~0 >> xPoint;
   
-  if ( Utility::getRandom64f() < 0.5 ) 
-    offspring = ( chThis & ~mask ) | ( chParent &  mask );
+  if ( Utility::getRandomF64() < 0.5 ) 
+    off = ( chThis & ~mask ) | ( chParent &  mask );
   else
-    offspring = ( chThis &  mask ) | ( chParent & ~mask );
+    off = ( chThis &  mask ) | ( chParent & ~mask );
   
   return Individual( off );
 }
 
-void Individual::mutate() {
-  unsigned int size = sizeof( uint32 );
+void Individual::mutate(double bitMutationProb) {
+  unsigned int size = GAM_BIT_ARRAY_SIZE;
 
-  std::bitset<size> bits( getChromosome().bitArray );
+  std::bitset<GAM_BIT_ARRAY_SIZE> bits( getChromosome().bitArray );
   
   for (unsigned int pos = 0; pos < size ; pos++) {
-    double prob = Utility::getRandom64F(0,1);
+    double prob = Utility::getRandomF64();
     
-    if( prob < param.getBitMutationProb() )
+    if( prob < bitMutationProb )
       bits.flip(pos);
   }
   
-  return Individual( ( uint32 ) bits.to_ulong() );
+  chrome.bitArray = ( uint32 ) bits.to_ulong();
 }
 
-Individual& Individual::operator = (const Individual &other) {
+Individual Individual::operator = (Individual other) {
   swap( fitness, other.fitness );
   swap( chrome.bitArray, other.chrome.bitArray );
   
   return *this;
+}
+
+bool Individual::operator < ( const Individual& other ) {
+  return ( fitness < other.fitness );
 }
 

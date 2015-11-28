@@ -1,7 +1,6 @@
 #include "gam_ga.h"
 #include "gam_utility.h"
-#include <math.h>
-#include <bitset>
+
 
 using namespace gam;
 
@@ -32,8 +31,8 @@ FitnessType GeneticAlgorithm::evolve() {
   
     pTmp = selection(pCnt);
     pTmp = offspring(pTmp);
-    evalPopulation(pTmp);
-    pCnt = replacement(pCnt,pTmp);
+    pTmp.evalFitness();
+    pCnt = replacement(pCnt, pTmp);
     pCnt.sort();
   }
   
@@ -48,24 +47,24 @@ Parameters GeneticAlgorithm::getParameters() {
   return param;
 }
 
-Population GeneticAlgorithm::selection(Population p) {
+Population GeneticAlgorithm::selection(Population &p) {
   // Using SUS method: Stochastic Universal Sampling
   // https://en.wikipedia.org/wiki/Stochastic_universal_sampling
   
   Population tmp;
-  unsigned int selected, nSelect, popSize;
+  unsigned int selected, nSelected, popSize;
   double increment, mark, adaptSum;
   
   nSelected = param.getNReplacedIndividuals();
   increment = 1.0 / nSelected;
-  mark = increment * Utility::getRandom64f();
+  mark = increment * Utility::getRandomF64();
   popSize = p.getPopulationSize();
   selected = 0;
   adaptSum = 0.0;
   
   p.sort();
   
-  for (unsigned int i = 0; i < popSize && selected < nSelect; i++) {
+  for (unsigned int i = 0; i < popSize && selected < nSelected; i++) {
     adaptSum += p.getIndividual(i).getFitness();
     
     while ( adaptSum > mark ) {
@@ -75,29 +74,31 @@ Population GeneticAlgorithm::selection(Population p) {
     }
   }
   
-  for (unsigned int i = 0; selected < nSelect; i++, selected++)
+  for (unsigned int i = 0; selected < nSelected; i++, selected++)
     tmp.addIndividual( p.getIndividual(i) );
   
   return tmp;
 }
 
-Population GeneticAlgorithm::offspring(Population p) {
+Population GeneticAlgorithm::offspring(Population &p) {
   Population pTmp;
   unsigned int popSize = p.getPopulationSize();
 
   for (unsigned int pos1 = 0; pos1 < popSize; ++pos1) {
     Individual ind = p.getIndividual(pos1);
-    float prob = Utility::getRandom32(0,1);
+    float prob = Utility::getRandomUI32(0,1);
     
     if ( prob < param.getMutationProb() ) 
-      ind.mutate();
+      ind.mutate( param.getBitMutationProb() );
     else {
-      unsigned int pos2 = Utility::getRandom32UI(0, popSize - 1);
+      unsigned int pos2 = Utility::getRandomUI32(0, popSize - 1);
       
       while ( pos2 == pos1 )
-        pos2 = Utility::getRandom32UI(0, popSize - 1);
+        pos2 = Utility::getRandomUI32(0, popSize - 1);
       
-      ind = ind & p.getIndividual( pos2 );
+      Individual ind2 = p.getIndividual( pos2 );
+      
+      ind = ind.crossover( ind2 );
     }
     
     pTmp.addIndividual( ind );
@@ -106,13 +107,7 @@ Population GeneticAlgorithm::offspring(Population p) {
   return pTmp;
 }
 
-void GeneticAlgorithm::evalPopulation(Population &p) {
-  p.evalFitness();
-  p.sort();
-}
-
-Population GeneticAlgorithm::replacement(const Population &pCnt, 
-        const Population &pTmp) {
+Population GeneticAlgorithm::replacement(Population &pCnt, Population &pTmp) {
   Population pNxt;
   unsigned int nReplaced, nPreserved;
   

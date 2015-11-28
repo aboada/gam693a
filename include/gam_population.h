@@ -6,7 +6,8 @@
 #include "gam_individual.h"
 
 namespace gam {
-
+  bool sortByFitness(const Individual& i1, const Individual& i2);
+  
   class Population {
     private:
       unsigned int popSize;
@@ -23,9 +24,6 @@ namespace gam {
       void setIndividual(unsigned int pos, Individual ind);
       unsigned int getPopulationSize();
       void addIndividual(Individual ind);
-      
-    private:
-      void sortByFitness(const Individual& i1, const Individual& i2);
   };
   
 }

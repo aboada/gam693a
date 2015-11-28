@@ -2,6 +2,7 @@
 #define GAM_INCLUDE_INDIVIDUAL_H_
 
 #include <algorithm> 
+#include <bitset>
 
 #include "gam_chromosome.h"
 #include "gam_definitions.h"
@@ -16,14 +17,15 @@ namespace gam{
     public:
       Individual(uint32 b);	
       Individual();
-      Individual& operator = (const Individual &other); 
-      void compFitness();
+      Individual operator = (Individual other); 
+      void computeFitness();
       FitnessType getFitness();
       void setChromosome(Chromosome ch);
       void setChromosome(uint32 b);
       Chromosome getChromosome();
-      Individual& operator & (const Individual &parent); // crossover
-      void mutate();
+      Individual crossover(Individual parent); // crossover
+      void mutate(double bitMutationProb);
+      bool operator < ( const Individual& other );
 	};
 	
 };

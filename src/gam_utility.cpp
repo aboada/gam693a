@@ -1,6 +1,3 @@
-#include <stdio.h>
-#include <limits.h>
-
 #include "gam_utility.h"
 
 using namespace gam;
@@ -29,15 +26,15 @@ void Utility::initRandNumberGen() {
 	srand(seed);
 }
 
-unsigned int Utility::getRandomF64() {
-  return (rand() * ( 1.0 / ( RAND_MAX + 1.0 ) ) * (1.0);
+double Utility::getRandomF64() {
+  return ( rand() * ( 1.0 / ( RAND_MAX + 1.0 ) ) * (1.0) );
 }
 
 unsigned int Utility::getRandomUI32() {  // [0,UINT_MAX]
-  return (rand() * ( 1.0 / ( RAND_MAX + 1.0 ) ) * (UINT_MAX);
+  return ( rand() * ( 1.0 / ( RAND_MAX + 1.0 ) ) * (UINT_MAX) );
 }
 
-unsigned int Utility::getRandom32(unsigned int a, unsigned int b) {  
+unsigned int Utility::getRandomUI32(unsigned int a, unsigned int b) {  
   // [a,b]
   return  a + (rand() * ( 1.0 /	( RAND_MAX + 1.0 ) ) * (b - a) );
 }

@@ -1,3 +1,4 @@
+#include "gam_definitions.h"
 #include "gam_utility.h"
 
 typedef struct {
