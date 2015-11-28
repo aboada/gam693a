@@ -4,7 +4,7 @@
 #include "gam_population.h"
 #include "gam_individual.h"
 #include "gam_parameters.h"
-
+#include "gam_definitions.h"
 
 namespace gam {
 
@@ -24,8 +24,6 @@ namespace gam {
     private:
       Population selection(Population p);
       Population offspring(Population p);
-      Individual recombination(Individual i1, Individual i2);
-      Individual mutate(Individual i);
       void evalPopulation(Population p);
       Population replacement(Population pCnt, Population pTmp);
   };
@@ -33,3 +31,4 @@ namespace gam {
 }
 
 #endif // GAM_INCLUDE_GA_H_
+

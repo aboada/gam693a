@@ -6,11 +6,11 @@
 using namespace gam;
 
 GeneticAlgorithm::GeneticAlgorithm() {
-  param = new Parameters();
+  param = Parameters();
 }
 
 GeneticAlgorithm::GeneticAlgorithm(bool isInitByFile) {
-  param = new Parameters(isInitByFile);
+  param = Parameters(isInitByFile);
 }
 
 GeneticAlgorithm::GeneticAlgorithm(Parameters p) {
@@ -18,22 +18,26 @@ GeneticAlgorithm::GeneticAlgorithm(Parameters p) {
 }
 
 void GeneticAlgorithm::initialize(bool isInitByFile){
-  param = new Parameters(isInitByFile);
+  param = Parameters(isInitByFile);
 }
   
 FitnessType GeneticAlgorithm::evolve() {
-  // TODO: implement this method
-  int i;
-  Population pCnt,pTmp,pNxt;
-  setParameters(param);
-  while(i<param.getMaxGenerations()){
+  unsigned int i, maxGen;
+  
+  maxGen = param.getMaxGenerations();
+  
+  Population pCnt, pTmp, pNxt;
+  
+  for (i = 0; i < maxGen; i++) {
+  
     pTmp = selection(pCnt);
     pTmp = offspring(pTmp);
     evalPopulation(pTmp);
-    pNxt = replacement(pCnt,pTmp);
+    pCnt = replacement(pCnt,pTmp);
+    pCnt.sort();
   }
-  pNxt.sort();
-    
+  
+  return pCnt.getIndividual(0).getFitness();
 }
 
 void GeneticAlgorithm::setParameters(Parameters p) {
@@ -45,56 +49,82 @@ Parameters GeneticAlgorithm::getParameters() {
 }
 
 Population GeneticAlgorithm::selection(Population p) {
-  // TODO: implement this method
+  // Using SUS method: Stochastic Universal Sampling
+  // https://en.wikipedia.org/wiki/Stochastic_universal_sampling
+  
+  Population tmp;
+  unsigned int selected, nSelect, popSize;
+  double increment, mark, adaptSum;
+  
+  nSelected = param.getNReplacedIndividuals();
+  increment = 1.0 / nSelected;
+  mark = increment * Utility::getRandom64f();
+  popSize = p.getPopulationSize();
+  selected = 0;
+  adaptSum = 0.0;
+  
+  p.sort();
+  
+  for (unsigned int i = 0; i < popSize && selected < nSelect; i++) {
+    adaptSum += p.getIndividual(i).getFitness();
+    
+    while ( adaptSum > mark ) {
+      tmp.addIndividual( p.getIndividual(i) );
+      mark += increment;
+      selected++;
+    }
+  }
+  
+  for (unsigned int i = 0; selected < nSelect; i++, selected++)
+    tmp.addIndividual( p.getIndividual(i) );
+  
+  return tmp;
 }
 
 Population GeneticAlgorithm::offspring(Population p) {
-  // TODO: implement this method
-  for (unsigned int pos1 = 0; pos1 < p.getPopulationSize(); ++pos1) {
-    int j = Utility::getRandom32(0,1);
-    if(j<param.getMutationProb()){
-      p.getIndividual(pos1) = mutate(p.getIndividual(pos1));
+  Population pTmp;
+  unsigned int popSize = p.getPopulationSize();
+
+  for (unsigned int pos1 = 0; pos1 < popSize; ++pos1) {
+    Individual ind = p.getIndividual(pos1);
+    float prob = Utility::getRandom32(0,1);
+    
+    if ( prob < param.getMutationProb() ) 
+      ind.mutate();
+    else {
+      unsigned int pos2 = Utility::getRandom32UI(0, popSize - 1);
+      
+      while ( pos2 == pos1 )
+        pos2 = Utility::getRandom32UI(0, popSize - 1);
+      
+      ind = ind & p.getIndividual( pos2 );
     }
-    else{
-      int pos2 = Utility::getRandom32(0,p.getPopulationSize()-1);
-      pos2 = ceil(pos2);
-      while(pos2==pos1){
-        pos2 = Utility::getRandom32(0,p.getPopulationSize()-1);
-        pos2 = ceil(pos2);
-      }
-      p.getIndividual(pos1) = recombination(p.getIndividual(pos1),
-                              p.getIndividual(pos2));
-    }
+    
+    pTmp.addIndividual( ind );
   }
+  
+  return pTmp;
 }
 
-Individual GeneticAlgorithm::recombination(Individual i1, 
-        Individual i2) {
-  // TODO: implement this method
-}
-
-Individual GeneticAlgorithm::mutate(Individual i) {
-  // READY FOR USE: 
-  unsigned int  size = sizeof(i.getChromosome().bitArray);
-  std::bitset <32> bits(i.getChromosome().bitArray);
-  for(int pos=0; pos < size ; pos++){
-    int prob = Utility::getRandom32(0,1);
-    if(prob < param.getBitMutationProb()){
-      bits.flip(pos);
-    }
-  }
-  i.setChromosome((unsigned int) bits.to_ulong()) ;
-  return i;
-}
-
-void GeneticAlgorithm::evalPopulation(Population p) {
-  // TODO: implement this method
+void GeneticAlgorithm::evalPopulation(Population &p) {
   p.evalFitness();
+  p.sort();
 }
 
-Population GeneticAlgorithm::replacement(Population pCnt, 
-        Population pTmp) {
-  // TODO: implement this method
+Population GeneticAlgorithm::replacement(const Population &pCnt, 
+        const Population &pTmp) {
+  Population pNxt;
+  unsigned int nReplaced, nPreserved;
+  
+  nReplaced = param.getNReplacedIndividuals();
+  nPreserved = param.getNPreservedIndividuals();
+  
+  for ( unsigned int i = 0; i < nPreserved; i++) 
+    pNxt.addIndividual( pCnt.getIndividual(i) );
+  
+  for ( unsigned int i = 0; i < nReplaced; i++) 
+    pNxt.addIndividual( pTmp.getIndividual(i) );
+  
+  return pNxt;
 }
 
-int main() {}

@@ -1,6 +1,8 @@
 #ifndef GAM_INCLUDE_POPULATION_H_
 #define GAM_INCLUDE_POPULATION_H_
+
 #include <vector>
+
 #include "gam_individual.h"
 
 namespace gam {
@@ -20,6 +22,8 @@ namespace gam {
       Individual getIndividual(unsigned int pos);
       void setIndividual(unsigned int pos, Individual ind);
       unsigned int getPopulationSize();
+      void addIndividual(Individual ind);
+      
     private:
       void sortByFitness(const Individual& i1, const Individual& i2);
   };

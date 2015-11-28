@@ -1,10 +1,11 @@
-
 #include <stdio.h>
 #include <limits.h>
 
 #include "gam_utility.h"
 
-void gam::Utility::initRandNumberGen() {
+using namespace gam;
+
+void Utility::initRandNumberGen() {
 	int fp, bytesRead;
 	unsigned int seed;
 
@@ -28,14 +29,16 @@ void gam::Utility::initRandNumberGen() {
 	srand(seed);
 }
 
-unsigned int gam::Utility::getRandom32() {
-/* REMOVE THIS! 
-limInf + (rand() * ( 1.0 /		\
-												( RAND_MAX + 1.0 ) ) * 		\
-												(limSup - limInf) ) */
+unsigned int Utility::getRandomF64() {
+  return (rand() * ( 1.0 / ( RAND_MAX + 1.0 ) ) * (1.0);
+}
 
+unsigned int Utility::getRandomUI32() {  // [0,UINT_MAX]
   return (rand() * ( 1.0 / ( RAND_MAX + 1.0 ) ) * (UINT_MAX);
-} // [0,UINT_MAX]
+}
 
-//unsigned int gam::Utility::getRandom32(unsigned int a, unsigned int b); // [a,b]
-//unsigned int gam::Utility::getRandom32(unsigned int l); // [0,l]
+unsigned int Utility::getRandom32(unsigned int a, unsigned int b) {  
+  // [a,b]
+  return  a + (rand() * ( 1.0 /	( RAND_MAX + 1.0 ) ) * (b - a) );
+}
+
