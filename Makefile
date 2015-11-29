@@ -2,7 +2,7 @@
 
 include Makefile.inc
 
-all: gamlib test
+all: gamlib
 
 gamlib:
 	@( cd $(SRC); $(MAKE) )

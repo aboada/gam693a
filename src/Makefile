@@ -2,7 +2,7 @@
 
 include ../Makefile.inc
 
-all: gam
+all: gam archive
 
 GAM =                 \
 	gam_ga.o            \
