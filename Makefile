@@ -2,12 +2,15 @@
 
 include Makefile.inc
 
-all: gamlib
+all: gamlib test
 
 gamlib:
 	@( cd $(SRC); $(MAKE) )
-	
-clean: cleanroot cleanlib
+
+test:
+	@( cd $(TESTS); $(MAKE) )
+
+clean: cleanroot cleanlib cleantest
 
 cleanroot:
 	@(rm -f *~)
@@ -15,4 +18,6 @@ cleanroot:
 cleanlib:
 	@( cd $(SRC); $(MAKE) clean )
 	@( cd $(LIB); $(MAKE) clean )
-	
+
+cleantest:
+	@( cd $(TESTS); $(MAKE) clean )

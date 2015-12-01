@@ -1,3 +1,6 @@
+#ifndef GAM_INCLUDE_CHROMOSOME_H_
+#define GAM_INCLUDE_CHROMOSOME_H_
+
 #include "gam_definitions.h"
 #include "gam_utility.h"
 
@@ -16,3 +19,4 @@ typedef union {
   
 } Chromosome;
 
+#endif

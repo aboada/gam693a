@@ -1,6 +1,4 @@
 #include "gam_ga.h"
-#include "gam_utility.h"
-
 
 using namespace gam;
 
@@ -25,18 +23,21 @@ FitnessType GeneticAlgorithm::evolve() {
   
   maxGen = param.getMaxGenerations();
   
-  Population pCnt, pTmp, pNxt;
+  Population pCnt, pTmp;
+  
+  pCnt.initialize( param.getPopulationSize() );
   
   for (i = 0; i < maxGen; i++) {
   
     pTmp = selection(pCnt);
     pTmp = offspring(pTmp);
-    pTmp.evalFitness();
+    pTmp.evaluate();
     pCnt = replacement(pCnt, pTmp);
     pCnt.sort();
-  }
+  } 
   
   return pCnt.getIndividual(0).getFitness();
+//  return pCnt.getIndividual(0).getFitness();
 }
 
 void GeneticAlgorithm::setParameters(Parameters p) {
@@ -91,10 +92,10 @@ Population GeneticAlgorithm::offspring(Population &p) {
     if ( prob < param.getMutationProb() ) 
       ind.mutate( param.getBitMutationProb() );
     else {
-      unsigned int pos2 = Utility::getRandomUI32(0, popSize - 1);
+      unsigned int pos2 = Utility::getRandomUI32(0, popSize);
       
       while ( pos2 == pos1 )
-        pos2 = Utility::getRandomUI32(0, popSize - 1);
+        pos2 = Utility::getRandomUI32(0, popSize);
       
       Individual ind2 = p.getIndividual( pos2 );
       

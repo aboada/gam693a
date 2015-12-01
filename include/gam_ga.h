@@ -1,10 +1,11 @@
 #ifndef GAM_INCLUDE_GA_H_
 #define GAM_INCLUDE_GA_H_
 
-#include "gam_population.h"
-#include "gam_individual.h"
-#include "gam_parameters.h"
+#include "gam_utility.h"
 #include "gam_definitions.h"
+#include "gam_individual.h"
+#include "gam_population.h"
+#include "gam_parameters.h"
 
 namespace gam {
 

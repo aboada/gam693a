@@ -4,13 +4,13 @@ include ../Makefile.inc
 
 all: gam archive
 
-GAM =                 \
-	gam_ga.o            \
-	gam_individual.o    \
-	gam_parameters.o    \
-	gam_population.o    \
-	gam_utility.o
-	
+GAM =				\
+	gam_utility.o       	\
+	gam_individual.o	\
+	gam_population.o	\
+	gam_parameters.o	\
+	gam_ga.o
+
 gam: $(GAM)
 
 #   Compiling statements.

@@ -16,7 +16,7 @@ Individual::Individual() {
 }
 		
 void Individual::computeFitness(){
-  FitnessType x, y;
+  double x, y;
   
   x = BITS_TO_DOUBLE( chrome.info.xComponent, GAM_X_COMPONENT_BITS ); 
   y = BITS_TO_DOUBLE( chrome.info.yComponent, GAM_Y_COMPONENT_BITS );  
@@ -86,5 +86,20 @@ Individual Individual::operator = (Individual other) {
 
 bool Individual::operator < ( const Individual& other ) {
   return ( fitness < other.fitness );
+}
+
+namespace gam {
+  ostream& operator <<(ostream &stream, Individual &in) {
+    double x, y;
+    
+    x = BITS_TO_DOUBLE(in.getChromosome().info.xComponent, GAM_X_COMPONENT_BITS); 
+    y = BITS_TO_DOUBLE(in.getChromosome().info.yComponent, GAM_Y_COMPONENT_BITS);  
+    
+    FitnessType funcVal = FITNESS_FUNCTION( x, y );
+    
+    stream << "(" << x << "," << y << ") = " << funcVal << endl;
+    
+    return stream;
+  }
 }
 

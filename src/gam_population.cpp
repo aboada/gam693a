@@ -1,8 +1,4 @@
-#include <iostream>
-#include <algorithm>
-
 #include "gam_population.h"
-#include "gam_utility.h"
 
 using namespace std;
 using namespace gam;
@@ -25,7 +21,7 @@ Population::Population(unsigned int size) {
 Population::~Population() {
 }
 
-void Population::initPopulation() {
+void Population::initialize() {
   if ( popSize < 1 )
     return;
     
@@ -34,7 +30,13 @@ void Population::initPopulation() {
   }
 }
 
-void Population::evalFitness() {
+void Population::initialize(unsigned int size) {
+  popSize = max(size, (unsigned int) 0);
+  
+  initialize();
+}
+
+void Population::evaluate() {
   if ( popSize < 1 )
     return;
     
@@ -43,7 +45,7 @@ void Population::evalFitness() {
   }
 }
 
-bool sortByFitness(const Individual& i1, const Individual& i2) {
+bool Population::sortByFitness(const Individual& i1, const Individual& i2) {
   Individual ind1 = i1;
   Individual ind2 = i2;
   
@@ -64,5 +66,16 @@ void Population::setIndividual(unsigned int pos, Individual ind) {
 
 unsigned int Population::getPopulationSize() {
   return popSize;
+}
+
+void Population::addIndividual(Individual ind) {
+  members.push_back(ind);
+  popSize = members.size();
+}
+
+void Population::print() {
+  for (unsigned int i = 0; i < popSize; i++) {
+    cout << i << ": " << members[i] << endl;
+  }
 }
 

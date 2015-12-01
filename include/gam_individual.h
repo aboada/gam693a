@@ -1,6 +1,7 @@
 #ifndef GAM_INCLUDE_INDIVIDUAL_H_
 #define GAM_INCLUDE_INDIVIDUAL_H_
 
+#include <iostream>
 #include <algorithm> 
 #include <bitset>
 
@@ -26,6 +27,7 @@ namespace gam{
       Individual crossover(Individual parent); // crossover
       void mutate(double bitMutationProb);
       bool operator < ( const Individual& other );
+      friend std::ostream& operator <<(std::ostream &stream, Individual &in);
 	};
 	
 };

@@ -1,4 +1,4 @@
-# Makefile setup file for MTK.
+# Makefile config file
 
 SHELL := /bin/bash
 
@@ -19,7 +19,4 @@ LIB       = $(BASE)/lib
 GAM_LIB   = $(LIB)/libgam.a
 TESTS     = $(BASE)/tests
 
-CCFLAGS += -std=c++11 -I$(INCLUDE)  -c
-
-
-
+CCFLAGS += -std=c++11 -fPIC -I$(INCLUDE) -c
