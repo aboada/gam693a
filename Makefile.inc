@@ -2,7 +2,7 @@
 
 SHELL := /bin/bash
 
-BASE = /home/mando/development/C++/Math693A_Project/gam693a
+BASE = /path/to/working_dir/
 
 CC = g++
 
