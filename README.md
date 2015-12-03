@@ -9,13 +9,13 @@ This project has been implemented using C++ as the programing language. You will
 
 
 HOW TO USE
-##########
+**********
 
 1. Download the code base and unzip it.
 2. Open the "Makefile.inc" file and change the variable BASE to point to the working directory.
-        BASE = /</path/to/working_dir>/gam693a  
+        BASE = /'</path/to/working_dir>'/gam693a  
 3. Run "make" inside the terminal.
-4. Library will be created in /</path/to/working_dir>/gam693a/lib called libgam.a
-5. To run the algorithm on the test functions, run the .cpp file inside /</path/to/working_dir>/gam693a/tests/.
+4. Library will be created in /'</path/to/working_dir>'/gam693a/lib called libgam.a
+5. To run the algorithm on the test functions, run the .cpp file inside /'</path/to/working_dir>'/gam693a/tests/.
 
 
