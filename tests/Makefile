@@ -2,14 +2,14 @@
 
 include ../Makefile.inc
 
-all: default_ga
+all: rosenbrock_ga cross_in_tray_ga
 
 BIN = \
-  default_ga
+  rosenbrock_ga cross_in_tray_ga
 
 CCFLAGS = -Wall -std=c++11 -fPIC -I$(INCLUDE)
 
-default_ga: default_ga.cpp $(GAM_LIB) 
+%: %.cpp $(GAM_LIB) 
 	$(CC) -o $@ $(CCFLAGS) $^
 	@echo ' '
 	

@@ -15,13 +15,16 @@ Individual::Individual() {
   chrome.info.yComponent = GAM_INIT_Y_VAL;	
 }
 		
-void Individual::computeFitness(){
+void Individual::computeFitness(const Parameters &p) {
+  Parameters param = p;
   double x, y;
   
-  x = BITS_TO_DOUBLE( chrome.info.xComponent, GAM_X_COMPONENT_BITS ); 
-  y = BITS_TO_DOUBLE( chrome.info.yComponent, GAM_Y_COMPONENT_BITS );  
+  x = BITS_TO_DOUBLE( chrome.info.xComponent, GAM_X_COMPONENT_BITS,
+            param.getMinX(), param.getMaxX() ); 
+  y = BITS_TO_DOUBLE( chrome.info.yComponent, GAM_Y_COMPONENT_BITS, 
+            param.getMinY(), param.getMaxY() );  
   
-  fitness = FITNESS_FUNCTION( x, y );
+  fitness = param.fitnessFunction( x, y );
 }
 
 FitnessType Individual::getFitness(){
@@ -77,6 +80,10 @@ void Individual::mutate(double bitMutationProb) {
   chrome.bitArray = ( uint32 ) bits.to_ulong();
 }
 
+void Individual::setFitness(FitnessType f) {
+  fitness = f;
+}
+
 Individual Individual::operator = (Individual other) {
   swap( fitness, other.fitness );
   swap( chrome.bitArray, other.chrome.bitArray );
@@ -88,18 +95,19 @@ bool Individual::operator < ( const Individual& other ) {
   return ( fitness < other.fitness );
 }
 
-namespace gam {
-  ostream& operator <<(ostream &stream, Individual &in) {
-    double x, y;
-    
-    x = BITS_TO_DOUBLE(in.getChromosome().info.xComponent, GAM_X_COMPONENT_BITS); 
-    y = BITS_TO_DOUBLE(in.getChromosome().info.yComponent, GAM_Y_COMPONENT_BITS);  
-    
-    FitnessType funcVal = FITNESS_FUNCTION( x, y );
-    
-    stream << "(" << x << "," << y << ") = " << funcVal << endl;
-    
-    return stream;
-  }
+void Individual::print(bool computeFitness, const Parameters &p) {
+  Parameters param = p;
+  FitnessType funcEval = fitness;
+  double x, y;
+  
+  x = BITS_TO_DOUBLE( chrome.info.xComponent, GAM_X_COMPONENT_BITS,
+            param.getMinX(), param.getMaxX() ); 
+  y = BITS_TO_DOUBLE( chrome.info.yComponent, GAM_Y_COMPONENT_BITS, 
+            param.getMinY(), param.getMaxY() );  
+  
+  if ( computeFitness)
+    funcEval = param.fitnessFunction( x, y );
+  
+  cout << "(" << x << "," << y << ") = " << funcEval << endl;  
 }
 

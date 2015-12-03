@@ -6,6 +6,7 @@
 #include <algorithm>
 
 #include "gam_individual.h"
+#include "gam_parameters.h"
 
 namespace gam {
   
@@ -21,13 +22,14 @@ namespace gam {
       ~Population();
       void initialize();
       void initialize(unsigned int size);
-      void evaluate();
+      void evaluate(const Parameters &p);
       void sort();
       Individual getIndividual(unsigned int pos);
       void setIndividual(unsigned int pos, Individual ind);
       unsigned int getPopulationSize();
       void addIndividual(Individual ind);
-      void print();
+      void print(const Parameters &p);
+      void rescale();
   };
   
 }

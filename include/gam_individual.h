@@ -7,6 +7,7 @@
 
 #include "gam_chromosome.h"
 #include "gam_definitions.h"
+#include "gam_parameters.h"
 
 namespace gam{
 
@@ -19,15 +20,16 @@ namespace gam{
       Individual(uint32 b);	
       Individual();
       Individual operator = (Individual other); 
-      void computeFitness();
+      void computeFitness(const Parameters &p);
       FitnessType getFitness();
+      void setFitness(FitnessType f);
       void setChromosome(Chromosome ch);
       void setChromosome(uint32 b);
       Chromosome getChromosome();
-      Individual crossover(Individual parent); // crossover
+      Individual crossover(Individual parent);
       void mutate(double bitMutationProb);
       bool operator < ( const Individual& other );
-      friend std::ostream& operator <<(std::ostream &stream, Individual &in);
+      void print(bool computeFitness, const Parameters &p);
 	};
 	
 };

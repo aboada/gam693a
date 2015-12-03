@@ -36,12 +36,14 @@ void Population::initialize(unsigned int size) {
   initialize();
 }
 
-void Population::evaluate() {
+void Population::evaluate(const Parameters &p) {
   if ( popSize < 1 )
     return;
     
+  Parameters param = p;
+    
   for (unsigned int i = 0; i < popSize; ++i) {
-    members[i].computeFitness();
+    members[i].computeFitness( param );
   }
 }
 
@@ -73,9 +75,22 @@ void Population::addIndividual(Individual ind) {
   popSize = members.size();
 }
 
-void Population::print() {
+void Population::print(const Parameters &p) {
+  Parameters param = p;
+  
   for (unsigned int i = 0; i < popSize; i++) {
-    cout << i << ": " << members[i] << endl;
+    cout << i << ": ";
+    members[i].print(true, param);
   }
+}
+
+void Population::rescale() {
+  FitnessType sum;
+  
+  for(unsigned int i = 0; i < popSize; i++) 
+    sum += members[i].getFitness();
+
+  for(unsigned int i = 0; i < popSize; i++)
+    members[i].setFitness( members[i].getFitness() / sum );
 }
 

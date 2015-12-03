@@ -1,5 +1,6 @@
 #include "gam_ga.h"
 
+using namespace std;
 using namespace gam;
 
 GeneticAlgorithm::GeneticAlgorithm() {
@@ -25,19 +26,29 @@ FitnessType GeneticAlgorithm::evolve() {
   
   Population pCnt, pTmp;
   
-  pCnt.initialize( param.getPopulationSize() );
+  Utility::initRandNumberGen();
   
+  pCnt.initialize( param.getPopulationSize() );
+
   for (i = 0; i < maxGen; i++) {
   
+    pCnt.evaluate(param);
+    pCnt.rescale();
+    pCnt.sort();
     pTmp = selection(pCnt);
     pTmp = offspring(pTmp);
-    pTmp.evaluate();
     pCnt = replacement(pCnt, pTmp);
-    pCnt.sort();
-  } 
+  }
   
-  return pCnt.getIndividual(0).getFitness();
-//  return pCnt.getIndividual(0).getFitness();
+  pCnt.evaluate(param);
+  pCnt.sort();
+  pCnt.print(param);
+  
+  return 0.0;
+  if ( pCnt.getPopulationSize() > 0 ) {
+    return pCnt.getIndividual(0).getFitness();
+  }
+  return 0.0;
 }
 
 void GeneticAlgorithm::setParameters(Parameters p) {
@@ -63,7 +74,7 @@ Population GeneticAlgorithm::selection(Population &p) {
   selected = 0;
   adaptSum = 0.0;
   
-  p.sort();
+//  p.sort();
   
   for (unsigned int i = 0; i < popSize && selected < nSelected; i++) {
     adaptSum += p.getIndividual(i).getFitness();
