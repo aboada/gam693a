@@ -15,7 +15,7 @@ int main() {
   
   param.setDomain(-DOMAIN_VALUE, DOMAIN_VALUE, -DOMAIN_VALUE, DOMAIN_VALUE);
   param.setFitnessFunction( &rosenbrock );
-  param.setMaxGenerations(10000);
+  param.setMaxGenerations(500);
   param.setPopulationSize(250);
   param.setMutationProb(0.25);
   param.setOutputFilePrefix("rosenbrock");

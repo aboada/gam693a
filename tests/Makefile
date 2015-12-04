@@ -2,10 +2,10 @@
 
 include ../Makefile.inc
 
-all: rosenbrock_ga cross_in_tray_ga
+all: rosenbrock_ga cross_in_tray_ga eggholder_ga dropwave_ga
 
 BIN = \
-  rosenbrock_ga cross_in_tray_ga
+  rosenbrock_ga cross_in_tray_ga eggholder_ga dropwave_ga
 
 CCFLAGS = -Wall -std=c++11 -fPIC -I$(INCLUDE)
 

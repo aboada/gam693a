@@ -6,19 +6,19 @@
 using namespace std;
 using namespace gam;
 
-double crossInTray(double x, double y);
+double dropwave(double x, double y);
 
-#define DOMAIN_VALUE 2.048
+#define DOMAIN_VALUE (5.12)
 
 int main() {
   Parameters param;
   
   param.setDomain(-DOMAIN_VALUE, DOMAIN_VALUE, -DOMAIN_VALUE, DOMAIN_VALUE);
-  param.setFitnessFunction( &crossInTray );
+  param.setFitnessFunction( &dropwave );
   param.setMaxGenerations(500);
   param.setPopulationSize(250);
   param.setMutationProb(0.25);
-  param.setOutputFilePrefix("crossintray");
+  param.setOutputFilePrefix("dropwave");
   
   GeneticAlgorithm ga( param );
   
@@ -27,8 +27,7 @@ int main() {
   return 0;
 }
 
-double crossInTray(double x, double y) {
-  return -0.0001 * pow ( abs( sin(x) * sin(y) * 
-          exp( abs( 100 - ( sqrt( (x*x) + (y*y) ) / M_PI ) ) ) + 1 ), 0.1);
+double dropwave(double x, double y) {
+  return - (1+cos(12*sqrt((x*x)+(y*y)))) / ((0.5*((x*x)+(y*y)))+2);
 }
 
