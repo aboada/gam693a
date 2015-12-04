@@ -8,11 +8,16 @@ using namespace gam;
 
 double crossInTray(double x, double y);
 
+#define DOMAIN_VALUE 2.048
+
 int main() {
   Parameters param;
   
-  param.setDomain(-2, 2, -2, 2);
+  param.setDomain(-DOMAIN_VALUE, DOMAIN_VALUE, -DOMAIN_VALUE, DOMAIN_VALUE);
   param.setFitnessFunction( &crossInTray );
+  param.setMaxGenerations(10000);
+  param.setPopulationSize(250);
+  param.setMutationProb(0.25);
   
   GeneticAlgorithm ga( param );
   

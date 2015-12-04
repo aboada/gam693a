@@ -2,7 +2,7 @@
 
 SHELL := /bin/bash
 
-BASE = /path/to/working_dir/
+BASE = $(strip $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST)))))
 
 CC = g++
 

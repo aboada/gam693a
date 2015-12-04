@@ -94,3 +94,47 @@ void Population::rescale() {
     members[i].setFitness( members[i].getFitness() / sum );
 }
 
+void Population::printToFile(const Parameters &p, bool isDetail) {  
+  Parameters param = p;
+  fstream fs;
+  string filename;
+  
+  if ( isDetail ) {
+    filename = "_detail.out";
+    filename = param.getOutputFilePrefix() + filename;
+  
+    fs.open ( filename, fstream::in | fstream::out | fstream::app );
+    
+    // printing in comma-separated values (CSV)
+    for (unsigned int i = 0; i < popSize; i++) {
+      double x, y;
+  
+      x = BITS_TO_DOUBLE( members[i].getChromosome().info.xComponent, 
+                GAM_X_COMPONENT_BITS,
+                param.getMinX(), param.getMaxX() ); 
+      y = BITS_TO_DOUBLE( members[i].getChromosome().info.yComponent, 
+                GAM_Y_COMPONENT_BITS, 
+                param.getMinY(), param.getMaxY() );  
+    
+      fs << x << "," << y << "," << members[i].getFitness() << endl;
+    }
+  }
+  else {
+    double sum = 0.0;
+    filename = "_summary.out";
+    filename = param.getOutputFilePrefix() + filename;
+  
+    fs.open ( filename, fstream::in | fstream::out | fstream::app );
+    
+    for (unsigned int i = 0; i < popSize; i++) 
+      sum += members[i].getFitness();
+
+    // printing in comma-separated values (CSV)
+    fs << members.front().getFitness() << "," <<
+            members.back().getFitness() << "," <<
+            sum / popSize << endl;
+  }
+  
+  fs.close();
+}
+

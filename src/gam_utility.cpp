@@ -39,3 +39,14 @@ unsigned int Utility::getRandomUI32(unsigned int a, unsigned int b) {
   return  a + (rand() * ( 1.0 /	( RAND_MAX + 1.0 ) ) * (b - a) );
 }
 
+void Utility::removeOutputFiles(const Parameters &p) {
+  Parameters param = p;
+  string detail("_detail.out"), summary("_summary.out");
+  
+  detail = param.getOutputFilePrefix() + detail;
+  summary = param.getOutputFilePrefix() + summary;
+  
+  remove( detail.c_str() );
+  remove( summary.c_str() );
+}
+

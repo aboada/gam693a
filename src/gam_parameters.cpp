@@ -12,6 +12,7 @@ Parameters::Parameters() {
   domainX.second = DEFAULT_X_MAX;
   domainY.first = DEFAULT_Y_MIN;
   domainY.second = DEFAULT_Y_MAX;
+  outputPrefix = DEFAULT_OUTPUT_F_PREFIX;
 }
 
 Parameters::Parameters(bool isInitByFile) {
@@ -31,6 +32,7 @@ void Parameters::initByDefault() {
   domainX.second = DEFAULT_X_MAX;
   domainY.first = DEFAULT_Y_MIN;
   domainY.second = DEFAULT_Y_MAX;
+  outputPrefix = DEFAULT_OUTPUT_F_PREFIX;
 }
 
 void Parameters::initByFile() {
@@ -114,7 +116,14 @@ void Parameters::setFitnessFunction( double (*function)(double x, double y) ) {
 }
 
 double Parameters::getMinX() { return domainX.first;  }
+
 double Parameters::getMaxX() { return domainX.second; }
+
 double Parameters::getMinY() { return domainY.first;  }
+
 double Parameters::getMaxY() { return domainY.second; }
+
+void Parameters::setOutputFilePrefix(string prefix) { outputPrefix = prefix; }
+
+string Parameters::getOutputFilePrefix() { return outputPrefix; }
 

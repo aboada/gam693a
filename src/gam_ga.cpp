@@ -27,27 +27,32 @@ FitnessType GeneticAlgorithm::evolve() {
   Population pCnt, pTmp;
   
   Utility::initRandNumberGen();
+  Utility::removeOutputFiles(param);
   
   pCnt.initialize( param.getPopulationSize() );
 
   for (i = 0; i < maxGen; i++) {
   
     pCnt.evaluate(param);
-    pCnt.rescale();
     pCnt.sort();
+    pCnt.printToFile(param, false);
+    pCnt.rescale();
+
     pTmp = selection(pCnt);
     pTmp = offspring(pTmp);
     pCnt = replacement(pCnt, pTmp);
+    
   }
   
   pCnt.evaluate(param);
   pCnt.sort();
-  pCnt.print(param);
+  pCnt.printToFile(param, true);
+  pCnt.printToFile(param, false);
   
-  return 0.0;
   if ( pCnt.getPopulationSize() > 0 ) {
     return pCnt.getIndividual(0).getFitness();
   }
+  
   return 0.0;
 }
 
@@ -73,8 +78,6 @@ Population GeneticAlgorithm::selection(Population &p) {
   popSize = p.getPopulationSize();
   selected = 0;
   adaptSum = 0.0;
-  
-//  p.sort();
   
   for (unsigned int i = 0; i < popSize && selected < nSelected; i++) {
     adaptSum += p.getIndividual(i).getFitness();

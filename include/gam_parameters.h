@@ -2,7 +2,8 @@
 #define GAM_INCLUDE_PARAMETERS_H_
 
 #include <tuple>
-
+#include <string>
+ 
 #include "gam_definitions.h"
 
 #define DEFAULT_POP_SIZE          ( 300 )
@@ -14,6 +15,7 @@
 #define DEFAULT_X_MAX             (1.0)
 #define DEFAULT_Y_MIN             (0.0)
 #define DEFAULT_Y_MAX             (1.0)
+#define DEFAULT_OUTPUT_F_PREFIX   ("results")
 
 namespace gam {
   
@@ -27,6 +29,7 @@ namespace gam {
       double mutationProb;
       double bitMutationProb;
       pair<double, double> domainX, domainY;
+      string outputPrefix;
       
     public:
       Parameters();
@@ -54,6 +57,8 @@ namespace gam {
       double getMinY();
       double getMaxY();
       double (*fitnessFunction)(double x, double y);
+      void setOutputFilePrefix(string prefix);
+      string getOutputFilePrefix();
   };
   
 }

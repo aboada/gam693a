@@ -15,11 +15,9 @@ Each evolutionary cycle starts from assigning each individuals of the population
 This project has been implemented using C++ as the programing language. You will be needing a g++ compiler to build this program.
 
 ### HOW TO USE
-*************
+**************
 
 1. Download the code base and unzip it.
-2. Open the "Makefile.inc" file and change the variable BASE to point to the working directory.
-        BASE = /path/to/working_dir  
-3. Run "make" inside the terminal.
-4. Library will be created in $(BASE)/lib called libgam.a
-5. To run the project on the test functions, run the binary files inside $(BASE)/tests/.
+2. Run "make" inside the terminal.
+3. Library will be created in $(BASE)/lib called libgam.a
+4. To run the project on the test functions, run the binary files inside $(BASE)/tests/.

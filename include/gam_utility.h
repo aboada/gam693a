@@ -13,6 +13,7 @@
 #include <time.h>
  
 #include "gam_definitions.h"
+#include "gam_parameters.h"
 
 namespace gam {
   
@@ -21,7 +22,8 @@ namespace gam {
       static void initRandNumberGen();
       static double getRandomF64(); // double [0,1]
       static unsigned int getRandomUI32(); // [0,UINT_MAX]
-      static unsigned int getRandomUI32(unsigned int a, unsigned int b); 
+      static unsigned int getRandomUI32(unsigned int a, unsigned int b);
+      static void removeOutputFiles(const Parameters &p);
   };
   
 }

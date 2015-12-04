@@ -2,6 +2,7 @@
 #define GAM_INCLUDE_POPULATION_H_
 
 #include <iostream>
+#include <fstream>
 #include <vector>
 #include <algorithm>
 
@@ -30,6 +31,7 @@ namespace gam {
       void addIndividual(Individual ind);
       void print(const Parameters &p);
       void rescale();
+      void printToFile(const Parameters &p, bool isDetail);
   };
   
 }

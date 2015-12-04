@@ -101,9 +101,9 @@ void Individual::print(bool computeFitness, const Parameters &p) {
   double x, y;
   
   x = BITS_TO_DOUBLE( chrome.info.xComponent, GAM_X_COMPONENT_BITS,
-            param.getMinX(), param.getMaxX() ); 
+            param.getMinX(), param.getMaxX() );
   y = BITS_TO_DOUBLE( chrome.info.yComponent, GAM_Y_COMPONENT_BITS, 
-            param.getMinY(), param.getMaxY() );  
+            param.getMinY(), param.getMaxY() );
   
   if ( computeFitness)
     funcEval = param.fitnessFunction( x, y );
